@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { View, FlatList, Text, Image, StyleSheet, ScrollView } from 'react-native';
+import { Button } from 'react-native-paper';
 import { getCredits } from '../../lib/api';
 import Stars from '../../components/Stars';
+import { useFavourite } from '../../context/FavouriteContext';
 
 export default function MovieDetail({ route, navigation }) {
   const [isLoading, setLoading] = useState(true);
   const { item } = route.params;
   const [cast, setCast] = useState([]);
+  const { addToFavourite } = useFavourite();
 
   useEffect(() => {
     if (item.id) {
@@ -26,6 +29,7 @@ export default function MovieDetail({ route, navigation }) {
         source={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
         style={{ width: 250, height: 300, marginLeft: 'auto', marginRight: 'auto' }}
       />
+
       <Text style={styles.title}>{item.title}</Text>
       <Text style={styles.text}>{item.overview}</Text>
       <Text style={styles.text}>Voter Average: {item.vote_average}</Text>
@@ -48,7 +52,17 @@ export default function MovieDetail({ route, navigation }) {
         </>
       )}
 
-      <Stars movieId={item.id}/>
+      <Button
+        style={styles.button}
+        icon="heart"
+        mode="contained"
+        uppercase={false}
+        onPress={() => addToFavourite(item)}
+      >
+        Add to favourites
+      </Button>
+
+      <Stars movieId={item.id} />
     </ScrollView>
   );
 }
@@ -80,5 +94,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'center'
+  },
+  button: {
+    width: 250,
+    marginLeft: 'auto',
+    marginRight: 'auto'
   }
 });

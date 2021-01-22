@@ -8,7 +8,7 @@ export default function Playing() {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [sortedMovies, setSortedMovies] = useState([]);
-  
+
   useEffect(() => {
     fetchMovies();
 
@@ -47,7 +47,7 @@ export default function Playing() {
           <FlatList
             data={sortedMovies}
             keyExtractor={({ id }) => id}
-            renderItem={({ item }) => <MovieItem item={item} />}
+            renderItem={({ item }) => <MovieItem item={item} favButton={true} />}
           />
         </View>
       )}
