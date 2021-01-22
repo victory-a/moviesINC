@@ -6,6 +6,7 @@ import { useFavourite } from '../context/FavouriteContext';
 
 export default function Favourites() {
   const { favourites } = useFavourite();
+  const favArr = favourites.map(({ id }) => id);
 
   return (
     <ScrollView>
@@ -13,13 +14,13 @@ export default function Favourites() {
         <Text style={styles.title}>No favourites selected yet :(</Text>
       ) : (
         <>
-        <View style={styles.container}>
-          <FlatList
-            data={favourites}
-            keyExtractor={({ id }) => id}
-            renderItem={({ item }) => <MovieItem item={item} />}
-          />
-        </View>
+          <View>
+            <FlatList
+              data={favourites}
+              keyExtractor={({ id }) => id}
+              renderItem={({ item }) => <MovieItem item={item} added={favArr.includes(item.id)} />}
+            />
+          </View>
         </>
       )}
     </ScrollView>
@@ -27,9 +28,6 @@ export default function Favourites() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    textAlign: 'center'
-  },
   title: {
     color: '#694fad',
     fontSize: 30,

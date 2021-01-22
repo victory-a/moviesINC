@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, View, ScrollView, StyleSheet } from 'react-native';
+import { FlatList, View, ScrollView } from 'react-native';
 import { Text } from 'react-native-paper';
 import { getCurrentMovies } from '../../lib/api';
 import MovieItem from '../../components/MovieItem';
+import { useFavourite } from '../../context/FavouriteContext';
 
 export default function Playing() {
   const [isLoading, setLoading] = useState(true);
@@ -15,7 +16,6 @@ export default function Playing() {
     async function fetchMovies() {
       const movies = await getCurrentMovies();
       setData(movies.results);
-      console.log(movies.results[0]);
       setLoading(false);
     }
   }, []);
@@ -43,20 +43,14 @@ export default function Playing() {
       {isLoading ? (
         <Text>Loading...</Text>
       ) : (
-        <View style={styles.container}>
+        <View>
           <FlatList
             data={sortedMovies}
-            keyExtractor={({ id }) => id}
-            renderItem={({ item }) => <MovieItem item={item} favButton={true} />}
+            keyExtractor={({ id }) => id.toString()}
+            renderItem={({ item }) => <MovieItem item={item} />}
           />
         </View>
       )}
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    textAlign: 'center'
-  }
-});

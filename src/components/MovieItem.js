@@ -4,9 +4,9 @@ import { TouchableRipple, Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import { useFavourite } from '../context/FavouriteContext';
 
-export default function MovieItem({ item, favButton = false }) {
+export default function MovieItem({ item, added }) {
   const { navigate } = useNavigation();
-  const { addToFavourite } = useFavourite();
+  const { addToFavourite, removeFromFavourite } = useFavourite();
 
   return (
     <TouchableRipple
@@ -23,7 +23,8 @@ export default function MovieItem({ item, favButton = false }) {
           <Text style={styles.text}>Voter Average: {item.vote_average}</Text>
           <Text style={styles.text}>Release date: {item.release_date}</Text>
         </View>
-        {favButton ? (
+
+        {!added ? (
           <Button
             style={styles.button}
             icon="heart"
@@ -33,7 +34,17 @@ export default function MovieItem({ item, favButton = false }) {
           >
             Add to favourites
           </Button>
-        ) : null}
+        ) : (
+          <Button
+            style={styles.button}
+            icon="heart"
+            mode="contained"
+            uppercase={false}
+            onPress={() => removeFromFavourite(item)}
+          >
+            Remove
+          </Button>
+        )}
       </View>
     </TouchableRipple>
   );
@@ -52,11 +63,13 @@ const styles = StyleSheet.create({
   title: {
     color: '#694fad',
     fontSize: 15,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    textAlign: "center"
   },
   text: {
     color: '#694fad',
-    fontSize: 12
+    fontSize: 12,
+    textAlign: "center"
   },
   button: {
     width: 250,

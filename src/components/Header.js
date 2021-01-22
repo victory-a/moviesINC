@@ -10,7 +10,7 @@ const Header = ({ scene, previous, navigation }) => {
       ? options.title
       : scene.route.name;
 
-  const _goBack = () => navigation.goBack()
+  const _goBack = () => navigation.goBack();
 
   return (
     <Appbar.Header>

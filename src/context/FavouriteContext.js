@@ -19,9 +19,17 @@ function FavouriteProvider(props) {
     });
   }
 
+  function removeFromFavourite(movie) {
+    setFavourite(favourites => {
+      const newFavourites = favourites.filter(({ id }) => id !== movie.id);
+      return [...newFavourites]
+    });
+  }
+
   const value = {
     favourites,
-    addToFavourite
+    addToFavourite,
+    removeFromFavourite
   };
   return <Provider value={value} {...props} />;
 }

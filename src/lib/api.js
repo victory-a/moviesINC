@@ -54,8 +54,6 @@ export const rateMovie = async (movieID, rating) => {
     value: rating
   });
 
-  console.log(options);
-
   try {
     const response = await fetch(
       `${baseUrl}/movie/${movieID}/rating?api_key=${APIKEY}&session_id=${sessionID}`,
