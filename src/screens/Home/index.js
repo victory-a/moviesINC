@@ -14,7 +14,6 @@ export default function Home() {
     headerMode="screen"
     screenOptions={{
       header: props => <Header {...props} />
-      
     }}
     
     >

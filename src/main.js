@@ -1,7 +1,4 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import { AppLoading } from 'expo';
-import { useFonts } from '@use-expo/font';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import navigationTheme from './styles/navigationTheme';
